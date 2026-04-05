@@ -1,4 +1,4 @@
-# **Aerocode \- Sistema de Gestão de Produção de Aeronaves (CLI)**
+# **Aerocode**
 Avaliação AV1 \- Professor Gerson da Penha
 
 Material: Técnicas de Programação I
