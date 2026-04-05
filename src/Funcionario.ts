@@ -20,18 +20,18 @@ export class Funcionario {
         this.nivelPermissao = nivelPermissao;
     }
 
-    autenticar(usuarioTentativa: string, senhaTentativa: string): boolean {
-        const sucesso = (this.usuario === usuarioTentativa && this.senha === senhaTentativa);
-        return sucesso;
+    autenticar(userDigitado: string, senhaDigitada: string): boolean {
+        const logou = (this.usuario === userDigitado && this.senha === senhaDigitada);
+        return logou;
     }
 
     salvar(): void {
         const dados = JSON.stringify(this);
         fs.appendFileSync("dados_funcionarios.txt", dados + "\n");
-        console.log(`[Sistema] Funcionário '${this.nome}' salvo com sucesso.`);
+        console.log(`-> Funcionario ${this.nome} salvo na base.`);
     }
 
     carregar(): void {
-        console.log(`[Sistema] Funcionalidade de carregamento individual de funcionário acionada.`);
+        console.log(`Carregando dados do funcionario...`);
     }
 }

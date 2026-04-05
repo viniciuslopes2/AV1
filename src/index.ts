@@ -14,139 +14,139 @@ if (process.platform === "win32") {
     } catch (e) {}
 }
 
-let aeronaveAtual: Aeronave | null = null;
+let aviaoAtual: Aeronave | null = null;
 
 console.clear();
-console.log("=================================================");
-console.log("  Aerocode - Gestão de Produção de Aeronaves");
-console.log("=================================================");
+console.log("-----------------------------------------");
+console.log(" Aerocode - Gestao de Producao ");
+console.log("-----------------------------------------");
 
-let rodando = true;
-const regexNaoVazio = /.+/;
-const msgErroVazio = "[Erro] Este campo é obrigatório preencher e não pode ser vazio. Tente novamente.";
+let menuAtivo = true;
+const validaTexto = /.+/;
+const erroMsg = "Erro: o campo nao pode ficar vazio.";
 
-while (rodando) {
-    console.log("\n--- MENU PRINCIPAL ---");
-    console.log("1 - Cadastrar Aeronave");
-    console.log("2 - Adicionar Peça");
-    console.log("3 - Avançar Etapa");
-    console.log("4 - Associar Funcionário à Aeronave");
-    console.log("5 - Registrar Teste");
-    console.log("6 - Exibir Detalhes da Aeronave");
-    console.log("7 - Gerar e Salvar Relatório Final");
-    console.log("8 - Salvar Todos os Dados");
-    console.log("0 - Sair");
+while (menuAtivo) {
+    console.log("\nMENU PRINCIPAL:");
+    console.log("1. Cadastrar Aeronave");
+    console.log("2. Adicionar Peca");
+    console.log("3. Avancar Etapa");
+    console.log("4. Associar Funcionario");
+    console.log("5. Registrar Teste");
+    console.log("6. Ver Detalhes");
+    console.log("7. Gerar Relatorio");
+    console.log("8. Salvar Tudo");
+    console.log("0. Sair");
 
-    const opcao = readlineSync.question("\nEscolha uma opcao: ");
+    const escolha = readlineSync.question("\nDigite a opcao: ");
 
-    switch (opcao) {
+    switch (escolha) {
         case "1":
-            console.log("\n-- Cadastro de Aeronave --");
-            const codigo = readlineSync.question("Codigo (Ex: EMB-101): ", { limit: regexNaoVazio, limitMessage: msgErroVazio });
-            const modelo = readlineSync.question("Modelo (Ex: Bandeirante): ", { limit: regexNaoVazio, limitMessage: msgErroVazio });
+            console.log("\n-- Nova Aeronave --");
+            const codigoAviao = readlineSync.question("Codigo (ex: EMB-101): ", { limit: validaTexto, limitMessage: erroMsg });
+            const nomeModelo = readlineSync.question("Modelo: ", { limit: validaTexto, limitMessage: erroMsg });
             
-            const opcoesTipo = ["COMERCIAL", "MILITAR"];
-            const indiceTipo = readlineSync.keyInSelect(opcoesTipo, "Tipo da Aeronave: ", { cancel: "Cancelar Operação" });
+            const tiposPossiveis = ["COMERCIAL", "MILITAR"];
+            const escolhaTipo = readlineSync.keyInSelect(tiposPossiveis, "Tipo: ", { cancel: "Cancelar" });
             
-            if (indiceTipo === -1) {
-                console.log("\n[Aviso] Cadastro cancelado.");
+            if (escolhaTipo === -1) {
+                console.log("\nCancelado.");
                 break;
             }
-            const tipo = indiceTipo === 0 ? TipoAeronave.COMERCIAL : TipoAeronave.MILITAR;
+            const tipoFinal = escolhaTipo === 0 ? TipoAeronave.COMERCIAL : TipoAeronave.MILITAR;
             
-            let capacidade = 0;
-            while (capacidade <= 0) {
-                capacidade = readlineSync.questionInt("Capacidade de Passageiros (Ex: 150): ", { limitMessage: "[Erro] Digite um numero valido." });
-                if (capacidade <= 0) console.log("[Erro] A capacidade deve ser maior que zero.");
+            let numCapacidade = 0;
+            while (numCapacidade <= 0) {
+                numCapacidade = readlineSync.questionInt("Capacidade: ", { limitMessage: "Digite um numero valido." });
+                if (numCapacidade <= 0) console.log("A capacidade tem que ser maior que zero.");
             }
 
-            let alcance = 0;
-            while (alcance <= 0) {
-                alcance = readlineSync.questionInt("Alcance em km (Ex: 3000): ", { limitMessage: "[Erro] Digite um numero valido." });
-                if (alcance <= 0) console.log("[Erro] O alcance deve ser maior que zero.");
+            let numAlcance = 0;
+            while (numAlcance <= 0) {
+                numAlcance = readlineSync.questionInt("Alcance km: ", { limitMessage: "Digite um numero valido." });
+                if (numAlcance <= 0) console.log("O alcance tem que ser maior que zero.");
             }
             
-            aeronaveAtual = new Aeronave(codigo, modelo, tipo, capacidade, alcance);
-            console.log("\n[Sucesso] Aeronave cadastrada com sucesso!");
+            aviaoAtual = new Aeronave(codigoAviao, nomeModelo, tipoFinal, numCapacidade, numAlcance);
+            console.log("\n-> Aeronave criada!");
             break;
 
         case "2":
-            if (!aeronaveAtual) { console.log("[Aviso] Cadastre uma aeronave primeiro (Opcao 1)."); break; }
+            if (!aviaoAtual) { console.log("Aviso: cadastre a aeronave antes."); break; }
             
-            console.log("\n-- Adicionar Peca --");
-            const nomePeca = readlineSync.question("Nome da Peca: ", { limit: regexNaoVazio, limitMessage: msgErroVazio });
-            const fornecedor = readlineSync.question("Fornecedor: ", { limit: regexNaoVazio, limitMessage: msgErroVazio });
+            console.log("\n-- Nova Peca --");
+            const pecaNome = readlineSync.question("Nome da peca: ", { limit: validaTexto, limitMessage: erroMsg });
+            const fornecedorPeca = readlineSync.question("Fornecedor: ", { limit: validaTexto, limitMessage: erroMsg });
             
-            const peca = new Peca(nomePeca, TipoPeca.NACIONAL, fornecedor, StatusPeca.PRONTA);
-            aeronaveAtual.pecas.push(peca);
-            console.log(`[Sucesso] Peca '${nomePeca}' adicionada.`);
+            const novaPeca = new Peca(pecaNome, TipoPeca.NACIONAL, fornecedorPeca, StatusPeca.PRONTA);
+            aviaoAtual.pecas.push(novaPeca);
+            console.log(`-> Peca ${pecaNome} adicionada.`);
             break;
 
         case "3":
-            if (!aeronaveAtual) { console.log("[Aviso] Cadastre uma aeronave primeiro."); break; }
+            if (!aviaoAtual) { console.log("Aviso: cadastre a aeronave antes."); break; }
             
-            console.log("\n-- Avancar Etapa --");
-            const nomeEtapa = readlineSync.question("Nome da Nova Etapa: ", { limit: regexNaoVazio, limitMessage: msgErroVazio });
-            const prazoEtapa = readlineSync.question("Prazo (DD/MM/AAAA): ", { limit: regexNaoVazio, limitMessage: msgErroVazio });
-            const etapa = new Etapa(nomeEtapa, prazoEtapa, StatusEtapa.PENDENTE);
+            console.log("\n-- Nova Etapa --");
+            const nomeDaEtapa = readlineSync.question("Nome da etapa: ", { limit: validaTexto, limitMessage: erroMsg });
+            const dataPrazo = readlineSync.question("Prazo (DD/MM/AAAA): ", { limit: validaTexto, limitMessage: erroMsg });
+            const novaEtapa = new Etapa(nomeDaEtapa, dataPrazo, StatusEtapa.PENDENTE);
             
-            etapa.iniciar();
-            etapa.finalizar();
-            aeronaveAtual.etapas.push(etapa);
+            novaEtapa.iniciar();
+            novaEtapa.finalizar();
+            aviaoAtual.etapas.push(novaEtapa);
             break;
 
         case "4":
-            if (!aeronaveAtual) { console.log("[Aviso] Cadastre uma aeronave primeiro."); break; }
+            if (!aviaoAtual) { console.log("Aviso: cadastre a aeronave antes."); break; }
             
-            console.log("\n-- Cadastrar Funcionario Rapido --");
-            const nomeFunc = readlineSync.question("Nome do Funcionario: ", { limit: regexNaoVazio, limitMessage: msgErroVazio });
-            const func = new Funcionario("F001", nomeFunc, "00000-0000", "SJC", "user", "123", NivelPermissao.ENGENHEIRO);
+            console.log("\n-- Funcionario --");
+            const funcNome = readlineSync.question("Nome: ", { limit: validaTexto, limitMessage: erroMsg });
+            const novoFunc = new Funcionario("F001", funcNome, "1199999999", "SP", "user1", "123", NivelPermissao.ENGENHEIRO);
             
-            if (aeronaveAtual.etapas.length > 0) {
-                aeronaveAtual.etapas[0].associarFuncionario(func);
+            if (aviaoAtual.etapas.length > 0) {
+                aviaoAtual.etapas[0].associarFuncionario(novoFunc);
             } else {
-                console.log("[Aviso] Crie ao menos uma etapa primeiro (Opcao 3).");
+                console.log("Crie uma etapa primeiro na opcao 3.");
             }
             break;
 
         case "5":
-            if (!aeronaveAtual) { console.log("[Aviso] Cadastre uma aeronave primeiro."); break; }
+            if (!aviaoAtual) { console.log("Aviso: cadastre a aeronave antes."); break; }
             
-            const teste = new Teste(TipoTeste.AERODINAMICO, ResultadoTeste.APROVADO);
-            aeronaveAtual.testes.push(teste);
-            console.log("[Sucesso] Teste AERODINAMICO aprovado e registrado.");
+            const novoTeste = new Teste(TipoTeste.AERODINAMICO, ResultadoTeste.APROVADO);
+            aviaoAtual.testes.push(novoTeste);
+            console.log("-> Teste aerodinamico aprovado.");
             break;
 
         case "6":
-            if (!aeronaveAtual) { console.log("[Aviso] Cadastre uma aeronave primeiro."); break; }
-            aeronaveAtual.detalhes();
+            if (!aviaoAtual) { console.log("Aviso: cadastre a aeronave antes."); break; }
+            aviaoAtual.detalhes();
             break;
 
         case "7":
-            if (!aeronaveAtual) { console.log("[Aviso] Cadastre uma aeronave primeiro."); break; }
+            if (!aviaoAtual) { console.log("Aviso: cadastre a aeronave antes."); break; }
             
-            console.log("\n-- Gerar Relatorio de Entrega --");
-            const cliente = readlineSync.question("Nome do Cliente: ", { limit: regexNaoVazio, limitMessage: msgErroVazio });
-            const dataEntrega = readlineSync.question("Data de Entrega (DD/MM/AAAA): ", { limit: regexNaoVazio, limitMessage: msgErroVazio });
+            console.log("\n-- Relatorio --");
+            const nomeCliente = readlineSync.question("Cliente: ", { limit: validaTexto, limitMessage: erroMsg });
+            const dataFinal = readlineSync.question("Data de entrega: ", { limit: validaTexto, limitMessage: erroMsg });
 
-            const relatorio = new Relatorio();
-            relatorio.gerarRelatorio(aeronaveAtual, cliente, dataEntrega);
-            relatorio.salvarEmArquivo();
+            const docRelatorio = new Relatorio();
+            docRelatorio.gerarRelatorio(aviaoAtual, nomeCliente, dataFinal);
+            docRelatorio.salvarEmArquivo();
             break;
 
         case "8":
-            if (!aeronaveAtual) { console.log("[Aviso] Cadastre uma aeronave primeiro."); break; }
-            aeronaveAtual.salvar();
-            console.log("[Sucesso] Progresso salvo no diretorio raiz do projeto.");
+            if (!aviaoAtual) { console.log("Aviso: cadastre a aeronave antes."); break; }
+            aviaoAtual.salvar();
+            console.log("-> Tudo salvo na pasta.");
             break;
 
         case "0":
-            rodando = false;
-            console.log("\nSistema Encerrado. Ate logo!");
+            menuAtivo = false;
+            console.log("\nSaindo...");
             break;
 
         default:
-            console.log("\n[Erro] Opcao invalida. Escolha um numero de 0 a 8.");
+            console.log("\nOpcao invalida, tente de novo.");
             break;
     }
 }

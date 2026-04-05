@@ -40,17 +40,13 @@ class Teste {
         this.tipo = tipo;
         this.resultado = resultado;
     }
-    // Persiste os dados deste teste em um arquivo local
     salvar() {
-        const dados = JSON.stringify(this);
-        // Usa appendFileSync para adicionar uma nova linha sem apagar o arquivo existente
-        fs.appendFileSync("dados_testes.txt", dados + "\n");
-        console.log(`[Sistema] Teste ${this.tipo} salvo com sucesso.`);
+        const dadosTexto = JSON.stringify(this);
+        fs.appendFileSync("dados_testes.txt", dadosTexto + "\n");
+        console.log(`-> Teste ${this.tipo} salvo com sucesso.`);
     }
-    // O método carregar no UML é um void de instância. 
-    // Para simplificar, este método simula um recarregamento básico.
     carregar() {
-        console.log(`[Sistema] Funcionalidade de carregamento individual de teste acionada.`);
+        console.log(`Carregando o teste...`);
     }
 }
 exports.Teste = Teste;

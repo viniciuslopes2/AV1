@@ -18,35 +18,35 @@ export class Etapa {
     iniciar(): void {
         if (this.status === StatusEtapa.PENDENTE) {
             this.status = StatusEtapa.ANDAMENTO;
-            console.log(`[Sistema] A etapa '${this.nome}' foi INICIADA.`);
+            console.log(`-> Etapa ${this.nome} iniciada.`);
         } else {
-            console.log(`[Erro] A etapa '${this.nome}' não está PENDENTE.`);
+            console.log(`Erro: a etapa ${this.nome} nao esta pendente para iniciar.`);
         }
     }
 
     finalizar(): void {
         if (this.status === StatusEtapa.ANDAMENTO) {
             this.status = StatusEtapa.CONCLUIDA;
-            console.log(`[Sistema] A etapa '${this.nome}' foi CONCLUÍDA com sucesso.`);
+            console.log(`-> Etapa ${this.nome} concluida.`);
         } else {
-            console.log(`[Erro] Não é possível finalizar. A etapa precisa estar em ANDAMENTO.`);
+            console.log(`Erro: a etapa precisa estar em andamento pra finalizar.`);
         }
     }
 
     associarFuncionario(f: Funcionario): void {
-        const jaExiste = this.funcionarios.some(func => func.id === f.id);
-        if (!jaExiste) {
+        const jaEstaNaEquipe = this.funcionarios.some(func => func.id === f.id);
+        if (!jaEstaNaEquipe) {
             this.funcionarios.push(f);
-            console.log(`[Sistema] Funcionário '${f.nome}' associado à etapa '${this.nome}'.`);
+            console.log(`-> Funcionario ${f.nome} adicionado na etapa ${this.nome}.`);
         } else {
-            console.log(`[Aviso] O funcionário '${f.nome}' já está nesta etapa.`);
+            console.log(`Aviso: ${f.nome} ja ta nessa etapa.`);
         }
     }
 
     listarFuncionarios(): Array<Funcionario> {
-        console.log(`\n--- Funcionários na Etapa: ${this.nome} ---`);
+        console.log(`\nEquipe da Etapa: ${this.nome}`);
         this.funcionarios.forEach(f => {
-            console.log(`- [${f.id}] ${f.nome} (${f.nivelPermissao})`);
+            console.log(`- ${f.nome} Cargo: ${f.nivelPermissao}`);
         });
         return this.funcionarios;
     }

@@ -43,19 +43,17 @@ class Peca {
         this.fornecedor = fornecedor;
         this.status = status;
     }
-    // Atualiza o status da peça na linha de montagem
     atualizarStatus(novoStatus) {
         this.status = novoStatus;
-        console.log(`[Sistema] O status da peça '${this.nome}' foi atualizado para: ${this.status}`);
+        console.log(`Status da peça ${this.nome} mudou para: ${this.status}`);
     }
-    // Salva a peça na base de dados (arquivo de texto)
     salvar() {
-        const dados = JSON.stringify(this);
-        fs.appendFileSync("dados_pecas.txt", dados + "\n");
-        console.log(`[Sistema] Peça '${this.nome}' salva com sucesso.`);
+        const dadosTexto = JSON.stringify(this);
+        fs.appendFileSync("dados_pecas.txt", dadosTexto + "\n");
+        console.log(`-> Peça ${this.nome} salva no arquivo.`);
     }
     carregar() {
-        console.log(`[Sistema] Funcionalidade de carregamento individual de peça acionada.`);
+        console.log(`Carregando peça...`);
     }
 }
 exports.Peca = Peca;

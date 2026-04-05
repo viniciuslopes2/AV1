@@ -45,19 +45,17 @@ class Funcionario {
         this.senha = senha;
         this.nivelPermissao = nivelPermissao;
     }
-    // Verifica se as credenciais batem (Retorna true ou false)
-    autenticar(usuarioTentativa, senhaTentativa) {
-        const sucesso = (this.usuario === usuarioTentativa && this.senha === senhaTentativa);
-        return sucesso;
+    autenticar(userDigitado, senhaDigitada) {
+        const logou = (this.usuario === userDigitado && this.senha === senhaDigitada);
+        return logou;
     }
-    // Salva o funcionário no banco de dados em texto
     salvar() {
         const dados = JSON.stringify(this);
         fs.appendFileSync("dados_funcionarios.txt", dados + "\n");
-        console.log(`[Sistema] Funcionário '${this.nome}' salvo com sucesso.`);
+        console.log(`-> Funcionario ${this.nome} salvo na base.`);
     }
     carregar() {
-        console.log(`[Sistema] Funcionalidade de carregamento individual de funcionário acionada.`);
+        console.log(`Carregando dados do funcionario...`);
     }
 }
 exports.Funcionario = Funcionario;

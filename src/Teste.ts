@@ -11,12 +11,12 @@ export class Teste {
     }
 
     salvar(): void {
-        const dados = JSON.stringify(this);
-        fs.appendFileSync("dados_testes.txt", dados + "\n");
-        console.log(`[Sistema] Teste ${this.tipo} salvo com sucesso.`);
+        const dadosTexto = JSON.stringify(this);
+        fs.appendFileSync("dados_testes.txt", dadosTexto + "\n");
+        console.log(`-> Teste ${this.tipo} salvo com sucesso.`);
     }
 
     carregar(): void {
-        console.log(`[Sistema] Funcionalidade de carregamento individual de teste acionada.`);
+        console.log(`Carregando o teste...`);
     }
 }

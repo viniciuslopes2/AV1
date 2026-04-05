@@ -46,40 +46,38 @@ class Etapa {
     iniciar() {
         if (this.status === enums_1.StatusEtapa.PENDENTE) {
             this.status = enums_1.StatusEtapa.ANDAMENTO;
-            console.log(`[Sistema] A etapa '${this.nome}' foi INICIADA.`);
+            console.log(`-> Etapa ${this.nome} iniciada.`);
         }
         else {
-            console.log(`[Erro] A etapa '${this.nome}' não está PENDENTE.`);
+            console.log(`Erro: a etapa ${this.nome} nao esta pendente para iniciar.`);
         }
     }
     finalizar() {
         if (this.status === enums_1.StatusEtapa.ANDAMENTO) {
             this.status = enums_1.StatusEtapa.CONCLUIDA;
-            console.log(`[Sistema] A etapa '${this.nome}' foi CONCLUÍDA com sucesso.`);
+            console.log(`-> Etapa ${this.nome} concluida.`);
         }
         else {
-            console.log(`[Erro] Não é possível finalizar. A etapa precisa estar em ANDAMENTO.`);
+            console.log(`Erro: a etapa precisa estar em andamento pra finalizar.`);
         }
     }
     associarFuncionario(f) {
-        // Evita duplicidade de funcionário na mesma etapa
-        const jaExiste = this.funcionarios.some(func => func.id === f.id);
-        if (!jaExiste) {
+        const jaEstaNaEquipe = this.funcionarios.some(func => func.id === f.id);
+        if (!jaEstaNaEquipe) {
             this.funcionarios.push(f);
-            console.log(`[Sistema] Funcionário '${f.nome}' associado à etapa '${this.nome}'.`);
+            console.log(`-> Funcionario ${f.nome} adicionado na etapa ${this.nome}.`);
         }
         else {
-            console.log(`[Aviso] O funcionário '${f.nome}' já está nesta etapa.`);
+            console.log(`Aviso: ${f.nome} ja ta nessa etapa.`);
         }
     }
     listarFuncionarios() {
-        console.log(`\n--- Funcionários na Etapa: ${this.nome} ---`);
+        console.log(`\nEquipe da Etapa: ${this.nome}`);
         this.funcionarios.forEach(f => {
-            console.log(`- [${f.id}] ${f.nome} (${f.nivelPermissao})`);
+            console.log(`- ${f.nome} Cargo: ${f.nivelPermissao}`);
         });
         return this.funcionarios;
     }
-    // Método extra para garantir persistência
     salvar() {
         const dados = JSON.stringify(this);
         fs.appendFileSync("dados_etapas.txt", dados + "\n");
