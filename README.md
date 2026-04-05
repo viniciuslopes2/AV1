@@ -1,6 +1,8 @@
 # **Aerocode \- Sistema de Gestão de Produção de Aeronaves (CLI)**
 Avaliação AV1 \- Professor Gerson da Penha
+
 Material: Técnicas de Programação I
+
 Nome aluno: Vinícius Silva Lopes
 
 Este é o sistema da Aerocode, desenvolvido em TypeScript com ambiente Node.js. Ele opera via Interface de Linha de Comando (CLI) para gerenciar todas as etapas de produção de aeronaves.
