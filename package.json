@@ -1,0 +1,19 @@
+{
+  "name": "aerocode",
+  "version": "1.0.0",
+  "description": "Sistema de Gestão de Produção de Aeronaves (CLI)",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc && node dist/index.js"
+  },
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.0",
+    "@types/readline-sync": "^1.4.8",
+    "typescript": "^5.0.0"
+  }
+}
