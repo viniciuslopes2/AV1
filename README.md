@@ -36,7 +36,7 @@ Para garantir que o sistema rode sem falhas, você precisa ter instalado na sua 
 * **Node.js** (Versão 18 ou superior \- [Baixe aqui](https://nodejs.org/))  
 * Sistema Operacional: Windows 10/11, Ubuntu 24.04 ou derivados.
 
-## **Instalação (Passo à Passo)**
+## **Instalação (Passo a Passo)**
 
 Siga os passos abaixo **exatamente nesta ordem** para evitar qualquer erro de "módulo não encontrado" (Cannot find module), então de ocorrer o erro do módulo nativo não encontrar o "fs" ou usuário não encontrado no terminal:
 
