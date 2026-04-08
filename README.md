@@ -14,13 +14,13 @@ Essa é árvore de projeto de como deveria ficar o seu programa para poder funci
 aerocode/
 ├── src/                     # pasta principal source ou src
 │   ├── Aeronave.ts
-│   ├── enums.ts
 │   ├── Etapa.ts
 │   ├── Funcionario.ts
-│   ├── index.ts
 │   ├── Peca.ts
 │   ├── Relatorio.ts
-│   └── teste.ts
+│   ├── Teste.ts
+│   ├── enums.ts
+│   └── index.ts
 ├── .gitignore               # o .gitignore que esconde o arquivo node_modules
 ├── dados_funcionarios.txt   # arquivo em que tem os dados de login de usuário (criado automaticamente após iniciar o programa)  
 ├── package.json             # configurações do projeto e atalhos para execução como o npm run dev
