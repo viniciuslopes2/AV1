@@ -63,8 +63,18 @@ class Aeronave {
         fs.writeFileSync(nomeArq, dadosAeronave);
         console.log(`-> Aeronave salva em ${nomeArq}`);
     }
-    carregar() {
-        console.log(`Carregando aeronave ${this.codigo}...`);
+    static carregar(codigoBusca) {
+        const nomeArq = `aeronave_${codigoBusca}.json`;
+        if (fs.existsSync(nomeArq)) {
+            const dadosLidos = fs.readFileSync(nomeArq, "utf-8");
+            const obj = JSON.parse(dadosLidos);
+            const aviaoSalvo = new Aeronave(obj.codigo, obj.modelo, obj.tipo, obj.capacidade, obj.alcance);
+            aviaoSalvo.pecas = obj.pecas || [];
+            aviaoSalvo.etapas = obj.etapas || [];
+            aviaoSalvo.testes = obj.testes || [];
+            return aviaoSalvo;
+        }
+        return null;
     }
 }
 exports.Aeronave = Aeronave;
