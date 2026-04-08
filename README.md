@@ -79,12 +79,23 @@ Crie um arquivo chamado tsconfig.json na raiz da pasta aerocode com o seguinte c
 ### **Passo 4: Configuração dos Scripts (package.json)**
 
 Abra o arquivo package.json gerado no Passo 2 e substitua a sessão "scripts" por esta: 
+
 ``` 
   "scripts": {  
     "build": "tsc",  
     "start": "node dist/index.js",  
     "dev": "tsc && node dist/index.js"  
   },
+```
+
+* **Observação:** utilizei o "engines" forçando a versão do Node maior ou igual à 18.0.0(```"node": ">=18.0.0"```). Pois é obrigatório para que o File Storage seja funcional ao programa, se não funcionar, volte ao passo do **Pré-requisitos**.
+
+Para implementar a "engines" insira no final da linha abaixo do ```"devDependencies"```:
+
+```
+  "engines": {
+    "node": ">=18.0.0"
+  }
 ```
 
 **Exemplo do arquivo package.json**
@@ -106,6 +117,9 @@ Abra o arquivo package.json gerado no Passo 2 e substitua a sessão "scripts" po
     "@types/node": "^25.0.0",
     "@types/readline-sync": "^1.4.8",
     "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
 ```

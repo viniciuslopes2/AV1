@@ -40,6 +40,7 @@ class Teste {
         this.tipo = tipo;
         this.resultado = resultado;
     }
+    // é tão legal programar
     salvar() {
         const dadosTexto = JSON.stringify(this);
         fs.appendFileSync("dados_testes.txt", dadosTexto + "\n");

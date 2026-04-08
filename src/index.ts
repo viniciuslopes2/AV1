@@ -69,6 +69,8 @@ console.log("-----------------------------------------");
 let menuAtivo = true;
 const validaTexto = /.+/;
 const erroMsg = "Erro: preencha o campo.";
+const validaData = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/\d{4}$/;
+const erroData = "Erro: digite uma data valida no formato DD/MM/AAAA.";
 
 while (menuAtivo) {
     console.log("\nMENU PRINCIPAL:");
@@ -139,7 +141,7 @@ while (menuAtivo) {
         case "3":
             if (!aviaoAtual) { console.log("Cadastre a aeronave antes."); break; }
             const nomeDaEtapa = readlineSync.question("Nome da etapa: ", { limit: validaTexto, limitMessage: erroMsg });
-            const dataPrazo = readlineSync.question("Prazo (DD/MM/AAAA): ", { limit: validaTexto, limitMessage: erroMsg });
+            const dataPrazo = readlineSync.question("Prazo (DD/MM/AAAA): ", { limit: validaData, limitMessage: erroData });
             const novaEtapa = new Etapa(nomeDaEtapa, dataPrazo, StatusEtapa.PENDENTE);
             novaEtapa.iniciar();
             novaEtapa.finalizar();
@@ -196,7 +198,7 @@ while (menuAtivo) {
         case "7":
             if (!aviaoAtual) { console.log("Cadastre a aeronave antes."); break; }
             const nomeCliente = readlineSync.question("Cliente: ", { limit: validaTexto, limitMessage: erroMsg });
-            const dataFinal = readlineSync.question("Data de entrega: ", { limit: validaTexto, limitMessage: erroMsg });
+            const dataFinal = readlineSync.question("Data de entrega (DD/MM/AAAA): ", { limit: validaData, limitMessage: erroData });
             const docRelatorio = new Relatorio();
             docRelatorio.gerarRelatorio(aviaoAtual, nomeCliente, dataFinal);
             docRelatorio.salvarEmArquivo();
@@ -236,6 +238,8 @@ while (menuAtivo) {
             const nNovo = readlineSync.question("Nome: ", { limit: validaTexto, limitMessage: erroMsg });
             const loginNovo = readlineSync.question("Login: ", { limit: validaTexto, limitMessage: erroMsg });
             const senhaNova = readlineSync.question("Senha: ", { limit: validaTexto, limitMessage: erroMsg });
+            const telefoneNovo = readlineSync.question("Telefone: ", { limit: validaTexto, limitMessage: erroMsg });
+            const enderecoNovo = readlineSync.question("Endereco: ", { limit: validaTexto, limitMessage: erroMsg });
             
             const perms = ["ADMINISTRADOR", "ENGENHEIRO", "OPERADOR"];
             const pEscolhida = readlineSync.keyInSelect(perms, "Permissao: ");
@@ -245,7 +249,7 @@ while (menuAtivo) {
             if (pEscolhida === 0) pFinal = NivelPermissao.ADMINISTRADOR;
             if (pEscolhida === 1) pFinal = NivelPermissao.ENGENHEIRO;
 
-            const funcCriado = new Funcionario(idNovo, nNovo, "0", "0", loginNovo, senhaNova, pFinal);
+            const funcCriado = new Funcionario(idNovo, nNovo, telefoneNovo, enderecoNovo, loginNovo, senhaNova, pFinal);
             usuarios.push(funcCriado);
             funcCriado.salvar();
             console.log("-> Usuario criado e salvo na base de dados.");

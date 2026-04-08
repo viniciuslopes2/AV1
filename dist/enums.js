@@ -40,3 +40,4 @@ var ResultadoTeste;
     ResultadoTeste["APROVADO"] = "APROVADO";
     ResultadoTeste["REPROVADO"] = "REPROVADO";
 })(ResultadoTeste || (exports.ResultadoTeste = ResultadoTeste = {}));
+//muitos enums
